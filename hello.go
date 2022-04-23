@@ -13,6 +13,10 @@ func Hello(name string, language string) string {
 		return "Hola, " + name
 	}
 
+	if language == "French" {
+		return "Bonjour, " + name
+	}
+
 	return englishHelloPrefix + name
 }
 
