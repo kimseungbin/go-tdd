@@ -22,3 +22,10 @@ func ExampleSum() {
 	fmt.Println(sum)
 	// Output: 15
 }
+
+func BenchmarkSum(b *testing.B) {
+	numbers := [5]int{100, 200, 300, 400, 500}
+	for i := 0; i < b.N; i++ {
+		Sum(numbers)
+	}
+}
