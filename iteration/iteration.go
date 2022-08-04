@@ -1,5 +1,8 @@
 package iteration
 
 func Repeat(input string) (repeated string) {
-	return ""
+	for i := 0; i < 5; i++ {
+		repeated += input
+	}
+	return repeated
 }
