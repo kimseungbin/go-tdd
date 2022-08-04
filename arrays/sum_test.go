@@ -41,3 +41,15 @@ func TestSumAll(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+func ExampleSumAll() {
+	sums := SumAll([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
+	fmt.Println(sums)
+	// Output: [6 15 24]
+}
+
+func BenchmarkSumAll(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SumAll([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
+	}
+}
