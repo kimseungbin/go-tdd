@@ -7,6 +7,6 @@ func Sum(numbers []int) (sum int) {
 	return
 }
 
-func SumAll([][]int) (total int) {
+func SumAll(numbersToSum ...[]int) (sums []int) {
 	return
 }
