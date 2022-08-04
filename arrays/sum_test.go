@@ -62,3 +62,15 @@ func TestSumAllTails(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+func ExampleSumAllTails() {
+	sums := SumAllTails([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
+	fmt.Println(sums)
+	// Output: [5 11 17]
+}
+
+func BenchmarkSumAllTails(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SumAllTails([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
+	}
+}
