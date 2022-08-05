@@ -5,6 +5,10 @@ import (
 	"testing"
 )
 
+type Shape interface {
+	Area() float64
+}
+
 func TestPerimeter(t *testing.T) {
 	rectangle := Rectangle{
 		Width:  10.0,
