@@ -6,7 +6,11 @@ import (
 )
 
 func TestPerimeter(t *testing.T) {
-	got := Perimeter(10.0, 2.0)
+	rectangle := Rectangle{
+		Width:  10.0,
+		Height: 2.0,
+	}
+	got := Perimeter(rectangle)
 	want := 24.0
 
 	if got != want {
@@ -15,7 +19,11 @@ func TestPerimeter(t *testing.T) {
 }
 
 func ExamplePerimeter() {
-	perimeter := Perimeter(5.0, 5.0)
+	rectangle := Rectangle{
+		Width:  5.0,
+		Height: 5.0,
+	}
+	perimeter := Perimeter(rectangle)
 	fmt.Println(perimeter)
 	// Output: 20
 }
