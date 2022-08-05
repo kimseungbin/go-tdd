@@ -29,7 +29,12 @@ func ExamplePerimeter() {
 }
 
 func TestArea(t *testing.T) {
-	got := Area(2.0, 2.0)
+	rectangle := Rectangle{
+		Width:  2.0,
+		Height: 2.0,
+	}
+
+	got := Area(rectangle)
 	want := 4.0
 
 	if got != want {
@@ -38,7 +43,11 @@ func TestArea(t *testing.T) {
 }
 
 func ExampleArea() {
-	area := Area(3.0, 3.0)
+	rectangle := Rectangle{
+		Width:  3.0,
+		Height: 3.0,
+	}
+	area := Area(rectangle)
 	fmt.Println(area)
 	// Output: 9
 }
