@@ -1,6 +1,9 @@
 package structs
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestPerimeter(t *testing.T) {
 	got := Perimeter(10.0, 2.0)
@@ -9,4 +12,10 @@ func TestPerimeter(t *testing.T) {
 	if got != want {
 		t.Errorf("got %.2f want %.2f", got, want)
 	}
+}
+
+func ExamplePerimeter() {
+	perimeter := Perimeter(5.0, 5.0)
+	fmt.Println(perimeter)
+	// Output: 20
 }
