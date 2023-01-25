@@ -86,6 +86,20 @@ func TestWalk(t *testing.T) {
 			},
 			ExpectedCalls: []string{"London", "Reykjavik"},
 		},
+		{
+			Name: "arrays",
+			Input: [2]Profile{
+				{
+					Age:  33,
+					City: "London",
+				},
+				{
+					Age:  34,
+					City: "Reykjavik",
+				},
+			},
+			ExpectedCalls: []string{"London", "Reykjavik"},
+		},
 	}
 
 	for _, test := range cases {
