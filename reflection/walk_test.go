@@ -100,6 +100,14 @@ func TestWalk(t *testing.T) {
 			},
 			ExpectedCalls: []string{"London", "Reykjavik"},
 		},
+		{
+			Name: "maps",
+			Input: map[string]string{
+				"Foo": "Bar",
+				"Baz": "Boz",
+			},
+			ExpectedCalls: []string{"Bar", "Boz"},
+		},
 	}
 
 	for _, test := range cases {
