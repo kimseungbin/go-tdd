@@ -7,16 +7,21 @@ import (
 )
 
 type SpyStore struct {
-	response string
+	response  string
+	cancelled bool
 }
 
 func (s *SpyStore) Fetch() string {
 	return s.response
 }
 
+func (s *SpyStore) Cancel() {
+	s.cancelled = true
+}
+
 func TestServer(t *testing.T) {
 	data := "hello, world"
-	server := Server(&SpyStore{data})
+	server := Server(&SpyStore{response: data})
 
 	request := httptest.NewRequest(http.MethodGet, "/", nil)
 	response := httptest.NewRecorder()
