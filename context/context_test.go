@@ -6,17 +6,17 @@ import (
 	"testing"
 )
 
-type StubStore struct {
+type SpyStore struct {
 	response string
 }
 
-func (s *StubStore) Fetch() string {
+func (s *SpyStore) Fetch() string {
 	return s.response
 }
 
 func TestServer(t *testing.T) {
 	data := "hello, world"
-	server := Server(&StubStore{data})
+	server := Server(&SpyStore{data})
 
 	request := httptest.NewRequest(http.MethodGet, "/", nil)
 	response := httptest.NewRecorder()
