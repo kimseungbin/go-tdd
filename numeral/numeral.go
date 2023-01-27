@@ -63,6 +63,19 @@ func ConvertToArabic(roman string) int {
 			// build the two character string
 			potentialNumber := string([]byte{symbol, nextSymbol})
 
+			// get the value of the two character string
+			value := allRomanNumerals.ValueOf(potentialNumber)
+
+			if value != 0 {
+				total += value
+				i++
+			} else {
+				total++
+			}
+		} else {
+			total++
 		}
 	}
+
+	return total
 }
