@@ -25,8 +25,8 @@ var allRomanNumerals = RomanNumerals{
 	{1, "I"},
 }
 
-func (r RomanNumerals) ValueOf(symbol string) int {
-
+func (r RomanNumerals) ValueOf(symbols ...byte) int {
+	symbol := string(symbols)
 	for _, s := range r {
 		if s.Symbol == symbol {
 			return s.Value
@@ -58,19 +58,14 @@ func ConvertToArabic(roman string) int {
 
 		// look ahead to next symbol if we can and, the current symbol is base 10 (only valid subtractors)
 		if couldBeSubtractive(i, symbol, roman) {
-			nextSymbol := roman[i+1]
-
-			// build the two character string
-			potentialNumber := string([]byte{symbol, nextSymbol})
-
-			if value := allRomanNumerals.ValueOf(potentialNumber); value != 0 {
+			if value := allRomanNumerals.ValueOf(symbol, roman[i+1]); value != 0 {
 				total += value
 				i++ // move past this character too for the next loop
 			} else {
 				total++
 			}
 		} else {
-			total += allRomanNumerals.ValueOf(string([]byte{symbol}))
+			total += allRomanNumerals.ValueOf(symbol)
 		}
 	}
 
