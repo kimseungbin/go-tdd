@@ -25,6 +25,17 @@ var allRomanNumerals = RomanNumerals{
 	{1, "I"},
 }
 
+func (r RomanNumerals) ValueOf(symbol string) int {
+
+	for _, s := range r {
+		if s.Symbol == symbol {
+			return s.Value
+		}
+	}
+
+	return 0
+}
+
 func ConvertToRoman(arabic int) string {
 
 	var result strings.Builder
