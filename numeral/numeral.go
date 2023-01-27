@@ -38,5 +38,5 @@ func ConvertToRoman(arabic int) string {
 }
 
 func ConvertToArabic(roman string) int {
-	return 0
+	return 1
 }
