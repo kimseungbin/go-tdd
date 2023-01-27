@@ -50,8 +50,7 @@ func ConvertToRoman(arabic int) string {
 	return result.String()
 }
 
-func ConvertToArabic(roman string) int {
-	total := 0
+func ConvertToArabic(roman string) (total int) {
 
 	for i := 0; i < len(roman); i++ {
 		symbol := roman[i]
