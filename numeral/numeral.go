@@ -7,7 +7,9 @@ type RomanNumeral struct {
 	Symbol string
 }
 
-var allRomanNumerals = []RomanNumeral{
+type RomanNumerals []RomanNumeral
+
+var allRomanNumerals = RomanNumerals{
 	{1000, "M"},
 	{900, "CM"},
 	{500, "D"},
@@ -38,11 +40,18 @@ func ConvertToRoman(arabic int) string {
 }
 
 func ConvertToArabic(roman string) int {
-	if roman == "III" {
-		return 3
+	total := 0
+
+	for i := 0; i < len(roman); i++ {
+		symbol := roman[i]
+
+		// look ahead to next symbol if we can and, the current symbol is base 10 (only valid subtractors)
+		if i+1 < len(roman) && symbol == 'I' {
+			nextSymbol := roman[i+1]
+
+			// build the two character string
+			potentialNumber := string([]byte{symbol, nextSymbol})
+
+		}
 	}
-	if roman == "II" {
-		return 2
-	}
-	return 1
 }
