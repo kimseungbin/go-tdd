@@ -36,6 +36,38 @@ func (r RomanNumerals) ValueOf(symbols ...byte) int {
 	return 0
 }
 
+func (r RomanNumerals) Exists(symbols ...byte) bool {
+	symbol := string(symbols)
+	for _, s := range r {
+		if s.Symbol == symbol {
+			return true
+		}
+	}
+	return false
+}
+
+type windowedRoman string
+
+func (w windowedRoman) Symbols() (symbols [][]byte) {
+	for i := 0; i < len(w); i++ {
+		symbol := w[i]
+		notAtEnd := i+1 < len(w)
+
+		if notAtEnd && isSubtractive(symbol) && allRomanNumerals.Exists(symbol, w[i+1]) {
+			symbols = append(symbols, []byte{symbol, w[i+1]})
+			i++
+		} else {
+			symbols = append(symbols, []byte{symbol})
+		}
+	}
+
+	return
+}
+
+func isSubtractive(symbol uint8) bool {
+	return symbol == 'I' || symbol == 'X' || symbol == 'C'
+}
+
 func ConvertToRoman(arabic int) string {
 
 	var result strings.Builder
@@ -51,24 +83,11 @@ func ConvertToRoman(arabic int) string {
 }
 
 func ConvertToArabic(roman string) (total int) {
-
-	for i := 0; i < len(roman); i++ {
-		symbol := roman[i]
-
-		// look ahead to next symbol if we can and, the current symbol is base 10 (only valid subtractors)
-		if couldBeSubtractive(i, symbol, roman) {
-			if value := allRomanNumerals.ValueOf(symbol, roman[i+1]); value != 0 {
-				total += value
-				i++ // move past this character too for the next loop
-			} else {
-				total++
-			}
-		} else {
-			total += allRomanNumerals.ValueOf(symbol)
-		}
+	for _, symbols := range windowedRoman(roman).Symbols() {
+		total += allRomanNumerals.ValueOf(symbols...)
 	}
 
-	return total
+	return
 }
 
 func couldBeSubtractive(index int, currentSymbol uint8, roman string) bool {
