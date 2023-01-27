@@ -1,6 +1,7 @@
 package blogposts_test
 
 import (
+	"tdd/blogposts"
 	"testing"
 	"testing/fstest"
 )
