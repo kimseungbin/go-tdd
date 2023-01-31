@@ -38,6 +38,11 @@ func getPost(fileSystem fs.FS, fileName string) (Post, error) {
 	return newPost(postFile)
 }
 
+const (
+	titleSeparator       = "Title: "
+	descriptionSeparator = "Description: "
+)
+
 func newPost(postFile io.Reader) (Post, error) {
 	scanner := bufio.NewScanner(postFile)
 
@@ -46,8 +51,8 @@ func newPost(postFile io.Reader) (Post, error) {
 		return scanner.Text()
 	}
 
-	title := readline()[7:]
-	description := readline()[13:]
+	title := readline()[len(titleSeparator):]
+	description := readline()[len(descriptionSeparator):]
 
 	return Post{Title: title, Description: description}, nil
 }
