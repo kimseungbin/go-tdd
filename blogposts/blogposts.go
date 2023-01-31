@@ -10,7 +10,11 @@ type Post struct {
 }
 
 func NewPostsFromFS(fileSystem fs.FS) ([]Post, error) {
-	dirEntries, _ := fs.ReadDir(fileSystem, ".")
+	dirEntries, err := fs.ReadDir(fileSystem, ".")
+	if err != nil {
+		return nil, err
+	}
+
 	var posts []Post
 	for range dirEntries {
 		posts = append(posts, Post{})
