@@ -33,11 +33,15 @@ func getPost(fileSystem fs.FS, f fs.DirEntry) (Post, error) {
 	}
 	defer postFile.Close()
 
+	return newPost(postFile)
+}
+
+func newPost(postFile fs.File) (Post, error) {
 	postData, err := io.ReadAll(postFile)
 	if err != nil {
 		return Post{}, err
 	}
 
-	post := Post{Title: string(postData[7:])}
+	post := Post{Title: string(postData)[7:]}
 	return post, nil
 }
