@@ -16,8 +16,12 @@ func NewPostsFromFS(fileSystem fs.FS) ([]Post, error) {
 	}
 
 	var posts []Post
-	for range dirEntries {
-		posts = append(posts, Post{})
+	for _, file := range dirEntries {
+		post, err := getPost(fileSystem, file)
+		if err != nil {
+			return nil, err
+		}
+		posts = append(posts, post)
 	}
 	return posts, nil
 }
