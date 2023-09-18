@@ -8,28 +8,7 @@ import (
 	"testing"
 )
 
-func TestRender(t *testing.T) {
-	var (
-		aPost = blogrenderer.Post{
-			Title:       "hello world",
-			Description: "This is a description",
-			Body:        "This is a post",
-			Tags:        []string{"go", "tdd"},
-		}
-	)
-
-	t.Run("it converts a single post into HTML", func(t *testing.T) {
-		buffer := bytes.Buffer{}
-		err := blogrenderer.Render(&buffer, aPost)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		approvals.VerifyString(t, buffer.String())
-	})
-}
-
-func BenchmarkRender(b *testing.B) {
+func TestPostRenderer_Render(t *testing.T) {
 	var (
 		aPost = blogrenderer.Post{
 			Title:       "hello world",
@@ -39,8 +18,40 @@ func BenchmarkRender(b *testing.B) {
 		}
 	)
 
+	postRenderer, err := blogrenderer.NewTestRenderer()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Run("it converts a single post into HTML", func(t *testing.T) {
+		buffer := bytes.Buffer{}
+
+		if err := postRenderer.Render(&buffer, aPost); err != nil {
+			t.Fatal(err)
+		}
+
+		approvals.VerifyString(t, buffer.String())
+	})
+
+}
+
+func BenchmarkPostRenderer_Render(b *testing.B) {
+	var (
+		aPost = blogrenderer.Post{
+			Title:       "hello world",
+			Description: "This is a post",
+			Body:        "This is a description",
+			Tags:        []string{"go", "tdd"},
+		}
+	)
+
+	postRenderer, err := blogrenderer.NewTestRenderer()
+	if err != nil {
+		b.Fatal(err)
+	}
+
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		blogrenderer.Render(io.Discard, aPost)
+		postRenderer.Render(io.Discard, aPost)
 	}
 }
