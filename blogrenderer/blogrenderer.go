@@ -36,16 +36,3 @@ func (r *PostRenderer) Render(writer io.Writer, post Post) error {
 
 	return nil
 }
-
-func Render(writer io.Writer, post Post) error {
-	templ, err := template.ParseFS(postTemplates, "templates/*.gohtml")
-	if err != nil {
-		return err
-	}
-
-	if err := templ.ExecuteTemplate(writer, "blog.gohtml", post); err != nil {
-		return err
-	}
-
-	return nil
-}
