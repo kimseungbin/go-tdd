@@ -22,7 +22,7 @@ func Render(writer io.Writer, post Post) error {
 		return err
 	}
 
-	if err := templ.Execute(writer, post); err != nil {
+	if err := templ.ExecuteTemplate(writer, "blog.gohtml", post); err != nil {
 		return err
 	}
 
