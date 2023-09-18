@@ -11,11 +11,27 @@ type Post struct {
 }
 
 func Render(writer io.Writer, post Post) error {
-	_, err := fmt.Fprintf(writer, `<h1>%s</h1>
-<p>This is a description</p>
-Tags: <ul><li>go</li><li>tdd</li></ul>`, post.Title)
+	_, err := fmt.Fprintf(writer, "<h1>%s</h1>\n<p>%s</p>\n", post.Title, post.Description)
 	if err != nil {
 		return err
 	}
+
+	_, err = fmt.Fprintf(writer, "Tags: <ul>")
+	if err != nil {
+		return err
+	}
+
+	for _, tag := range post.Tags {
+		_, err = fmt.Fprintf(writer, "<li>%s</li>", tag)
+		if err != nil {
+			return err
+		}
+	}
+
+	_, err = fmt.Fprintf(writer, "</ul>")
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
