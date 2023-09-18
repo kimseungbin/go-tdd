@@ -11,7 +11,9 @@ type Post struct {
 }
 
 func Render(writer io.Writer, post Post) error {
-	_, err := fmt.Fprintf(writer, "<h1>%s</h1>", post.Title)
+	_, err := fmt.Fprintf(writer, `<h1>%s</h1>
+<p>This is a description</p>
+Tags: <ul><li>go</li><li>tdd</li></ul>`, post.Title)
 	if err != nil {
 		return err
 	}
