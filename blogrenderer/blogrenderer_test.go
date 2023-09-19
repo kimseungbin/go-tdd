@@ -18,7 +18,7 @@ func TestPostRenderer_Render(t *testing.T) {
 		}
 	)
 
-	postRenderer, err := blogrenderer.NewTestRenderer()
+	postRenderer, err := blogrenderer.NewPostRenderer()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -45,7 +45,7 @@ func BenchmarkPostRenderer_Render(b *testing.B) {
 		}
 	)
 
-	postRenderer, err := blogrenderer.NewTestRenderer()
+	postRenderer, err := blogrenderer.NewPostRenderer()
 	if err != nil {
 		b.Fatal(err)
 	}
@@ -62,7 +62,7 @@ func TestPostRenderer_RenderIndex(t *testing.T) {
 		{Title: "Hello World 2"},
 	}
 
-	postRenderer, err := blogrenderer.NewTestRenderer()
+	postRenderer, err := blogrenderer.NewPostRenderer()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -74,11 +74,6 @@ func TestPostRenderer_RenderIndex(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		got := buffer.String()
-		want := `<ol><li><a href="/post/hello-world">Hello World</a></li><li><a href="/post/hello-world-2">Hello World 2</a></li></ol>`
-
-		if got != want {
-			t.Errorf("got %q want %q", got, want)
-		}
+		approvals.VerifyString(t, buffer.String())
 	})
 }
